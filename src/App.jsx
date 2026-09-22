@@ -1,5 +1,7 @@
 import "./App.css";
+import SearchForm from "./components/SearchForm";
 import UserData from "./components/UserData";
+import ThemeToggle from "./components/ThemeToggle";
 import { useState } from "react";
 import { searchUser } from "./services/api";
 import linkBrokenIcon from "./assets/link-broken.svg";
@@ -46,40 +48,17 @@ function App() {
 
   return (
     <div className={theme === "dark" ? "dark" : ""}>
-      <div className="bg-white dark:bg-gray-800 text-[#746f6f] dark:text-[#d8d8d8] h-screen">
-        <div className="flex justify-between w-3/5 m-auto mb-4 pt-12">
+      <div className="bg-white dark:bg-gray-800 text-[#746f6f] dark:text-[#d8d8d8] h-full md:h-screen py-12">
+        <div className="flex justify-between w-4/5 md:w-3/5 m-auto mb-4">
           <h1 className="font-bold">devfinder</h1>
-          <button
-            type="button"
-            className="theme-btn text-sm"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? "Light 🌞" : "Dark 🌛"}
-          </button>
+          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
         </div>
-        <form
-          id="search-form"
-          onSubmit={handleSubmit}
-          className="flex w-3/5 m-auto mb-4 bg-[#f6f8fa] dark:bg-gray-700 rounded-lg p-2"
-        >
-          <input
-            id="search-input"
-            name="search-input"
-            type="text"
-            placeholder="Search GitHub username..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full"
-          />
-          <button
-            disabled={!searchTerm || loading}
-            type="submit"
-            className="search-btn w-24 text-sm text-white font-semibold bg-sky-500 p-2 rounded-lg"
-          >
-            Search
-          </button>
-        </form>
+        <SearchForm
+          loading={loading}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          handleSubmit={handleSubmit}
+        />
 
         {error && (
           <div className="w-fit m-auto text-lg text-center">
@@ -108,23 +87,7 @@ function App() {
             Loading...
           </div>
         ) : (
-          user &&
-          !error && (
-            <UserData
-              name={user.name}
-              imgUrl={user.avatar_url}
-              creationDate={user.created_at}
-              username={user.login}
-              bio={user.bio}
-              repos={user.public_repos}
-              followers={user.followers}
-              following={user.following}
-              location={user.location}
-              twitter={user.twitter_username}
-              blog={user.blog}
-              company={user.company}
-            />
-          )
+          user && !error && <UserData user={user} />
         )}
       </div>
     </div>

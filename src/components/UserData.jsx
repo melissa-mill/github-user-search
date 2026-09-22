@@ -3,24 +3,24 @@ import twitterIcon from "../assets/twitter.svg";
 import linkIcon from "../assets/link.svg";
 import companyIcon from "../assets/company.svg";
 
-function UserData({
-  name,
-  imgUrl,
-  creationDate,
-  username,
-  bio,
-  repos,
-  followers,
-  following,
-  location,
-  twitter,
-  blog,
-  company,
-}) {
-  const date = new Date(creationDate);
+function UserData({ user }) {
+  if (!user) return null;
+
+  const name = user.name;
+  const imgUrl = user.avatar_url;
+  const username = user.login;
+  const bio = user.bio || "This profile has no bio";
+  const repos = user.public_repos;
+  const followers = user.followers;
+  const following = user.following;
+  const location = user.location || "Not available";
+  const twitter = user.twitter || "Not available";
+  const blog = user.blog || "Not available";
+  const company = user.company || "Not available";
+  const date = new Date(user.created_at);
 
   return (
-    <div className="user-container flex w-3/5 m-auto bg-[#f6f8fa] dark:bg-gray-700 rounded-lg p-10 gap-10">
+    <div className="user-container flex flex-col md:flex-row w-4/5 md:w-3/5 m-auto bg-[#f6f8fa] dark:bg-gray-700 rounded-lg p-10 gap-10">
       {imgUrl && (
         <img
           src={imgUrl}
@@ -48,9 +48,7 @@ function UserData({
           >
             @{username}
           </a>
-          <p className="user-bio text-sm mb-1">
-            {bio || "This profile has no bio"}
-          </p>
+          <p className="user-bio text-sm mb-1">{bio}</p>
         </div>
         <div className="user-info flex justify-between bg-[#e6eaef] dark:bg-gray-800 py-2 px-4 rounded-lg mb-4">
           <div>
@@ -67,8 +65,8 @@ function UserData({
           </div>
         </div>
         <div className="additional-info flex flex-col text-sm">
-          <div className="flex justify-between mb-2">
-            <p className="location">
+          <div className="block sm:flex justify-between">
+            <p className="location mb-2">
               <img
                 src={locationIcon}
                 alt="Location icon"
@@ -77,9 +75,9 @@ function UserData({
                 loading="lazy"
                 className="float-left contrast-0 dark:contrast-100 dark:invert mr-2"
               />
-              {location || "Not available"}
+              {location}
             </p>
-            <p className="twitter">
+            <p className="twitter mb-2">
               <img
                 src={twitterIcon}
                 alt="Twitter icon"
@@ -88,11 +86,11 @@ function UserData({
                 loading="lazy"
                 className="float-left contrast-0 dark:contrast-100 dark:invert mr-2"
               />
-              {twitter || "Not available"}
+              {twitter}
             </p>
           </div>
-          <div className="flex justify-between">
-            <p className="blog">
+          <div className="block sm:flex justify-between">
+            <p className="blog mb-2">
               <img
                 src={linkIcon}
                 alt="Link icon"
@@ -101,7 +99,7 @@ function UserData({
                 loading="lazy"
                 className="float-left contrast-0 dark:contrast-100 dark:invert mr-2"
               />
-              {blog || "Not available"}
+              {blog}
             </p>
             <p className="company">
               <img
@@ -112,7 +110,7 @@ function UserData({
                 loading="lazy"
                 className="float-left contrast-0 dark:contrast-100 dark:invert mr-2"
               />
-              {company || "Not available"}
+              {company}
             </p>
           </div>
         </div>
