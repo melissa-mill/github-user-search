@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div className={theme === "dark" ? "dark" : ""}>
-      <div className="bg-white dark:bg-gray-800 text-[#746f6f] dark:text-[#d8d8d8] h-full md:h-screen py-12">
+      <div className="bg-white dark:bg-gray-800 text-[#746f6f] dark:text-[#d8d8d8] h-screen py-12">
         <div className="flex justify-between w-4/5 md:w-3/5 m-auto mb-4">
           <h1 className="font-bold">devfinder</h1>
           <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
