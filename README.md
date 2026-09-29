@@ -1,6 +1,7 @@
 # GitHub user search app
 
 A GitHub user search application built with React that allows users to search for GitHub profiles and view their public information.
+[Demo](https://melissa-mill.github.io/github-user-search/)
 
 ## Features
 - Search for GitHub users by username
